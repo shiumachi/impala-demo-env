@@ -83,6 +83,8 @@ echo ${IMPALAD_IP_ADDR}
 sudo -u impala impala-shell -i ${IMPALAD_IP_ADDR} -q '''
 INVALIDATE METADATA;
 
+SHOW TABLES;
+
 CREATE TABLE airlines_bi_local_pq STORED AS PARQUET AS SELECT *, concat(cast(year as string), lpad(cast(month as string),2,"0")) as date_yyyymm from airlines_pq;
 
 COMPUTE STATS airlines_bi_local_pq;
