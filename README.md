@@ -3,13 +3,13 @@ Install scripts of Impala cluster for BI Demo
 This is for Demo purposes only. Don't use for production.
 
 - These scripts install and deploy the following environment automatically.
-  - Cloudera Enterprise 5.13 (Trial) including Impala
+  - Cloudera Enterprise 5.14.0 (Trial) including Impala
 
 - I only tested on the AWS ap-northeast-1 (Tokyo) region
 
 ## Requirement
 
-- Cloudera Director 2.6
+- Cloudera Director 2.7
     - The simplest way to install Cloudera Director on Mac is here -> https://github.com/chezou/homebrew-cloudera
 - AWS Environment
     - Setting up a VPC for Cloudera Director
@@ -49,10 +49,10 @@ $ export AWS_ACCESS_KEY_ID=<your-aws-access-key>
 $ export AWS_SECRET_ACCESS_KEY=<your-aws-secret>
 
 $ cloudera-director bootstrap-remote impala-demo-cluster.conf --lp.remote.username=admin --lp.remote.password=admin --lp.remote.hostAndPort=localhost:7189
-Process logs can be found at /usr/local/Cellar/cloudera-director-client/2.6.0/libexec/logs/application.log
-Plugins will be loaded from /usr/local/Cellar/cloudera-director-client/2.6.0/libexec/plugins
+Process logs can be found at /usr/local/Cellar/cloudera-director-client/2.7.0/libexec/logs/application.log
+Plugins will be loaded from /usr/local/Cellar/cloudera-director-client/2.7.0/libexec/plugins
 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0
-Cloudera Director 2.6.0 initializing ...
+Cloudera Director 2.7.0 initializing ...
 Connecting to http://localhost:7189
 Current user roles: [ROLE_READONLY, ROLE_ADMIN]
 Found warnings in cluster configuration:
@@ -62,75 +62,73 @@ Creating a new environment...
 Creating external database servers if configured...
 Creating a new Cloudera Manager...
 Creating a new CDH cluster...
-* Requesting an instance for Cloudera Manager ........ done
+* Requesting an instance for Cloudera Manager ......... done
 * Installing screen package (1/1) .... done
 * Running bootstrap script #1 (crc32: 5e2d4d51) ....... done
-* Waiting until 2017-11-16T17:28:58.974+09:00 for SSH access to [10.0.0.155, ip-10-0-0-155.ap-northeast-1.compute.internal, 13.113.180.45, ec2-13-113-180-45.ap-northeast-1.compute.amazonaws.com], default port 22 .... done
-* Inspecting capabilities of 10.0.0.155 ... done
-* Normalizing 7de94da5-8118-41c7-a4c7-8acadd1d789d ... done
-* Installing ntp package (1/4) .... done
-* Installing curl package (2/4) .... done
-* Installing nscd package (3/4) .... done
-* Installing gdisk package (4/4) ............................... done
+* Waiting until 2018-01-26T21:25:35.124+09:00 for SSH access to [10.0.0.225, ip-10-0-0-225.ap-northeast-1.compute.internal, 52.193.225.32, ec2-52-193-225-32.ap-northeast-1.compute.amazonaws.com], default port 22 ... done
+* Inspecting capabilities of 10.0.0.225 .... done
+* Normalizing 8d2f8894-0355-4249-9ad7-acaaff0287d4 ... done
+* Installing ntp package (1/5) .... done
+* Installing curl package (2/5) .... done
+* Installing nscd package (3/5) .... done
+* Installing rng-tools package (4/5) .... done
+* Installing gdisk package (5/5) ...................................... done
 * Resizing instance root partition ........ done
 * Mounting all instance disk drives ........ done
-* Waiting for new external database servers to start running ... done
-* Installing repositories for Cloudera Manager ..... done
+* Installing repositories for Cloudera Manager ....... done
 * Installing yum-utils package (1/3) .... done
 * Installing cloudera-manager-daemons package (2/3) .... done
 * Installing cloudera-manager-server package (3/3) .... done
+* Setting up embedded PostgreSQL database for Cloudera Manager ... done
 * Installing cloudera-manager-server-db-2 package (1/1) .... done
 * Starting embedded PostgreSQL database ..... done
 * Starting Cloudera Manager server ... done
-* Waiting for Cloudera Manager server to start .... done
+* Waiting for Cloudera Manager server to start ..... done
 * Setting Cloudera Manager License ... done
 * Enabling Enterprise Trial ... done
 * Configuring Cloudera Manager ... done
-* Deploying Cloudera Manager agent ... done
-* Waiting for Cloudera Manager to deploy agent on 10.0.0.155 ..... done
-* Setting up Cloudera Management Services ......... done
+* Deploying Cloudera Manager agent ..... done
+* Waiting for Cloudera Manager to deploy agent on 10.0.0.225 ..... done
+* Setting up Cloudera Management Services .......... done
 * Backing up Cloudera Manager Server configuration ...... done
-* Inspecting capabilities of 10.0.0.155 ... done
+* Inspecting capabilities of 10.0.0.225 ... done
 * Running Deployment post create scripts ... done
+* Starting ... done
 * Done ...
 Cloudera Manager ready.
-* Waiting for Cloudera Manager installation to complete ..... done
-* Installing Cloudera Manager agents on all instances in parallel (20 at a time) .................................................................................................................................................................................................................................................. done
-* Creating CDH5 cluster using the new instances ....... done
-* Creating cluster: impala-demo-cluster ............... done
-* Downloading parcels: CDH-5.13.0-1.cdh5.13.0.p0.29 ......................................................................... done
-* Raising rate limits for parcel distribution to 256000KB/s with 5 concurrent uploads .... done
-* Distributing parcels: CDH-5.13.0-1.cdh5.13.0.p0.29 ....................................................................................................................................................................................................................................................................................................................................................................... done
-* Switching parcel distribution rate limits back to defaults: 51200KB/s with 25 concurrent uploads ....... done
-* Activating parcels: CDH-5.13.0-1.cdh5.13.0.p0.29 .......................................... done
-* Creating cluster services .......... done
-* Assigning roles to instances ........... done
+* Waiting for Cloudera Manager installation to complete ...... done
+* Installing Cloudera Manager agents on all instances in parallel (20 at a time) .................................................................................................................................................................................................................................................................. done
+* Creating CDH5 cluster using the new instances .... done
+* Creating cluster: impala-demo-cluster ....... done
+* Downloading parcels: CDH-5.14.0-1.cdh5.14.0.p0.24 ..................................................................................................................................... done
+* Raising rate limits for parcel distribution to 256000KB/s with 5 concurrent uploads ... done
+* Distributing parcels: CDH-5.14.0-1.cdh5.14.0.p0.24 .............................................................................................................................................................................................................................................................................................................................................................................................................. done
+* Switching parcel distribution rate limits back to defaults: 51200KB/s with 25 concurrent uploads .... done
+* Activating parcels: CDH-5.14.0-1.cdh5.14.0.p0.24 ........................................ done
+* Creating cluster services ..... done
+* Assigning roles to instances ...... done
 * Automatically configuring services and roles ..... done
-* Applying custom configurations of services ..... done
-* Configuring HIVE database ....... done
-* Configuring HUE database .... done
-* Configuring role config groups of type DATANODE .... done
-* Renaming role config group from DataNode Default Group to DATANODE worker Group OcSetDnF ... done
-* Configuring role config groups of type NODEMANAGER .... done
-* Renaming role config group from NodeManager Default Group to NODEMANAGER worker Group Pky2ytCJ .... done
+* Applying custom configurations of services .... done
+* Configuring HIVE database .... done
+* Configuring HUE database ... done
+* Configuring OOZIE database ... done
+* Creating role config groups, applying custom configurations and moving roles to created role config groups ... done
+* Configuring role config groups of type DATANODE ... done
+* Configuring role config groups of type NODEMANAGER ... done
 * Configuring role config groups of type IMPALAD ... done
-* Renaming role config group from Impala Daemon Default Group to IMPALAD worker Group R35lkol5 .... done
 * Configuring role config groups of type KUDU_TSERVER ... done
-* Renaming role config group from Tablet Server Default Group to KUDU_TSERVER worker Group LMJhfKOh .... done
+* Renaming role config group from Tablet Server Default Group to KUDU_TSERVER worker Group z2ElXWVn ... done
 * Configuring role config groups of type NAMENODE ... done
-* Renaming role config group from NameNode Default Group to NAMENODE master Group 99GqM80z .... done
-* Configuring role config groups of type SECONDARYNAMENODE .... done
-* Renaming role config group from SecondaryNameNode Default Group to SECONDARYNAMENODE master Group gK0wO1hl ... done
-* Configuring role config groups of type RESOURCEMANAGER .... done
-* Renaming role config group from ResourceManager Default Group to RESOURCEMANAGER master Group 9brJJ30G ... done
-* Configuring role config groups of type KUDU_MASTER .... done
-* Renaming role config group from Master Default Group to KUDU_MASTER master Group 5y6vqOz7 ..... done
-* Preparing cluster impala-demo-cluster .... done
-* Creating Hive Metastore Database ......... done
-* Waiting for firstRun on cluster impala-demo-cluster ........................................................................................................................................................................................................................ done
-* Running instance post create scripts in parallel (20 at a time) .... done
-* Running 1 cluster post creation script(s) .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... done
-* Adjusting health thresholds to take into account optional instances. .................................................. done
+* Configuring role config groups of type SECONDARYNAMENODE ... done
+* Renaming role config group from SecondaryNameNode Default Group to SECONDARYNAMENODE master Group MuzK24xQ ... done
+* Renaming role config group from ResourceManager Default Group to RESOURCEMANAGER master Group ieRwAWkS ... done
+* Renaming role config group from Master Default Group to KUDU_MASTER master Group SHaZ6inA ..... done
+* Preparing cluster impala-demo-cluster ... done
+* Creating Hive Metastore Database ............................... done
+* Waiting for firstRun on cluster impala-demo-cluster .......................................................................................................................................................................................................................................... done
+* Running instance post create scripts in parallel (20 at a time) ..... done
+* Running 1 cluster post creation script(s) ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... done
+* Adjusting health thresholds to take into account optional instances. ............. done
 * Done ...
 Cluster ready.
 
