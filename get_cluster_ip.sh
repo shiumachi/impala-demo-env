@@ -19,15 +19,15 @@ else
 	ENV_NAME=${CLUSTER_NAME}"%20Environment"
 fi
 
-DEPLOYMENT_NAME=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/ | python2 -c 'import sys, json, urllib; print urllib.quote(json.load(sys.stdin)[0])'`
-CLUSTER_NAME=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/clusters/ | python -c 'import sys, json, urllib; print urllib.quote(json.load(sys.stdin)[0])'`
+DEPLOYMENT_NAME=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/ | python -c 'import sys, json; from six.moves.urllib.parse import quote; print(quote(json.load(sys.stdin)[0]))'`
+CLUSTER_NAME=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/clusters/ | python -c 'import sys, json; from six.moves.urllib.parse import quote; print(quote(json.load(sys.stdin)[0]))'`
 
 #Get CM IP Addrs on AWS
-CM_PUBLIC_IPADDR=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/ |  python2 -c 'import sys, json; print json.load(sys.stdin)["managerInstance"]["properties"]["publicIpAddress"]'`
-CM_PRIVATE_IPADDR=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/ |  python2 -c 'import sys, json; print json.load(sys.stdin)["managerInstance"]["properties"]["privateIpAddress"]'`
+CM_PUBLIC_IPADDR=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/ |  python -c 'import sys, json; print(json.load(sys.stdin)["managerInstance"]["properties"]["publicIpAddress"])'`
+CM_PRIVATE_IPADDR=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/ |  python -c 'import sys, json; print(json.load(sys.stdin)["managerInstance"]["properties"]["privateIpAddress"])'`
 
 #Get Node IP Addrs on AWS
-INS_IPADDRS=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/clusters/${CLUSTER_NAME} | python2 -c 'import sys, json;print "\n".join([i["virtualInstance"]["template"]["name"] +","+ i["properties"]["publicIpAddress"] +","+ i["properties"]["privateIpAddress"] for i in json.load(sys.stdin)["instances"]])'`
+INS_IPADDRS=`curl -s -u ${CD_USER_NAME}:${CD_USER_PASS} http://${CD_HOST_PORT}/api/v8/environments/${ENV_NAME}/deployments/${DEPLOYMENT_NAME}/clusters/${CLUSTER_NAME} | python -c 'import sys, json;print("\n".join([i["virtualInstance"]["template"]["name"] +","+ i["properties"]["publicIpAddress"] +","+ i["properties"]["privateIpAddress"] for i in json.load(sys.stdin)["instances"]]))'`
 
 #Get An Impalad IP Addr on AWS
 AN_IMPALD_IPADDR=`echo "${INS_IPADDRS}" | awk -F[,] '/worker/ {print $3}' | head -n1`
